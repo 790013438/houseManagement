@@ -1,8 +1,11 @@
 package snippets.jee.persistence.impl;
 
+import org.springframework.stereotype.Component;
+
 import snippets.jee.bean.User;
 import snippets.jee.persistence.UserDAO;
 
+@Component
 public class UserDAOImpl implements UserDAO {
 
     private static final long serialVersionUID = 1L;
