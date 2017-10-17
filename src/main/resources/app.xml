@@ -22,15 +22,15 @@
         <property name="packagesToScan" value="snippets.jee.entity"></property>
         <property name="hibernateProperties">
             <value>
-                hibernate.dialect=org.hibernate.dialect.Mysql57Dialet
+                hibernate.dialect=org.hibernate.dialect.MySQL57Dialect
                 hibernate.show_sql=true
                 hibernate.format_sql=true
-                hibernate.current_session_context_class=thread;
             </value>
         </property>
     </bean>
 
     <context:component-scan base-package="snippets.jee.entity"></context:component-scan>
+    <context:component-scan base-package="snippets.jee.service"></context:component-scan>
     <context:annotation-config/>
 
     <aop:aspectj-autoproxy/>
