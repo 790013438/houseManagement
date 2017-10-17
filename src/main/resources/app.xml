@@ -6,24 +6,32 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/context
-    http://www.springframework.org/schema/context/spring-context.xsd">
-    <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
-        <property name="url" value="jdbc:hsqldb:hsql://localhost:9001"/>
-        <property name="username" value="sa"/>
-        <property name="password" value=""/>
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/jpa"/>
+        <property name="username" value="user1"/>
+        <property name="password" value="37934bit"/>
+        <property name="initialSize" value="10"></property>
+        <property name="maxTotal" value="100"></property>
     </bean>
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="mappingResources">
-            <list>
-                <value>product.hbm.xml</value>
-            </list>
-        </property>
+        <property name="packagesToScan" value="snippets.jee.entity"></property>
         <property name="hibernateProperties">
             <value>
-                hibernate.dialect=org.hibernate.dialect.HSQLDialect
+                hibernate.dialect=org.hibernate.dialect.Mysql57Dialet
+                hibernate.show_sql=true
+                hibernate.format_sql=true
+                hibernate.current_session_context_class=thread;
             </value>
         </property>
     </bean>
+
+    <context:component-scan base-package="snippets.jee.entity"></context:component-scan>
+    <context:annotation-config/>
+
+    <aop:aspectj-autoproxy/>
 </beans>
