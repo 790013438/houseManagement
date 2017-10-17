@@ -32,8 +32,12 @@
         </property>
     </bean>
 
-    <context:component-scan base-package="snippets.jee.entity"></context:component-scan>
-    <context:component-scan base-package="snippets.jee.service"></context:component-scan>
+    <context:component-scan base-package="snippets.jee">
+        <context:exclude-filter type="annotation" 
+                expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" 
+                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
     <context:annotation-config/>
 
     <aop:aspectj-autoproxy/>
@@ -42,5 +46,5 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <tx:annotation-drive transaction-manager="transactionManager"/>
+    <tx:annotation-driven transaction-manager="transactionManager" />
 </beans>
