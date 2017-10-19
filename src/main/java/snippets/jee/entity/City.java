@@ -36,11 +36,11 @@ public class City implements Serializable {
     //bi-directional many-to-one association to Province
     @ManyToOne
     @JoinColumn(name="prov_id")
-    private Province tbProvince;
+    private Province province;
 
     //bi-directional many-to-one association to District
-    @OneToMany(mappedBy="tbCity")
-    private List<District> tbDistricts;
+    @OneToMany(mappedBy="city")
+    private List<District> districts;
 
     public City() {
     }
@@ -61,34 +61,34 @@ public class City implements Serializable {
         this.name = name;
     }
 
-    public Province getTbProvince() {
-        return this.tbProvince;
+    public Province getProvince() {
+        return this.province;
     }
 
-    public void setTbProvince(Province tbProvince) {
-        this.tbProvince = tbProvince;
+    public void setProvince(Province province) {
+        this.province = province;
     }
 
-    public List<District> getTbDistricts() {
-        return this.tbDistricts;
+    public List<District> getDistricts() {
+        return this.districts;
     }
 
-    public void setTbDistricts(List<District> tbDistricts) {
-        this.tbDistricts = tbDistricts;
+    public void setDistricts(List<District> districts) {
+        this.districts = districts;
     }
 
-    public District addTbDistrict(District tbDistrict) {
-        getTbDistricts().add(tbDistrict);
-        tbDistrict.setTbCity(this);
+    public District addDistrict(District district) {
+        getDistricts().add(district);
+        district.setCity(this);
 
-        return tbDistrict;
+        return district;
     }
 
-    public District removeTbDistrict(District tbDistrict) {
-        getTbDistricts().remove(tbDistrict);
-        tbDistrict.setTbCity(null);
+    public District removeDistrict(District district) {
+        getDistricts().remove(district);
+        district.setCity(null);
 
-        return tbDistrict;
+        return district;
     }
 
 }

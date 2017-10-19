@@ -20,7 +20,8 @@ public class User implements Serializable {
     @Column(name="userid")
     private int id;
 
-    private byte isadmin;
+    @Column(name = "isadmin")
+    private Boolean admin;
 
     private String password;
 
@@ -31,12 +32,12 @@ public class User implements Serializable {
     private String username;
 
     //bi-directional many-to-one association to House
-    @OneToMany(mappedBy="tbUser")
-    private List<House> tbHouses;
+    @OneToMany(mappedBy="user")
+    private List<House> houses;
 
     //bi-directional many-to-one association to LoginLog
-    @OneToMany(mappedBy="tbUser")
-    private List<LoginLog> tbLoginLogs;
+    @OneToMany(mappedBy="user")
+    private List<LoginLog> loginLogs;
 
     public User() {
     }
@@ -49,12 +50,12 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public byte getIsadmin() {
-        return this.isadmin;
+    public boolean getIsadmin() {
+        return this.admin;
     }
 
-    public void setIsadmin(byte isadmin) {
-        this.isadmin = isadmin;
+    public void setIsadmin(boolean admin) {
+        this.admin = admin;
     }
 
     public String getPassword() {
@@ -89,48 +90,48 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    public List<House> getTbHouses() {
-        return this.tbHouses;
+    public List<House> getHouses() {
+        return this.houses;
     }
 
-    public void setTbHouses(List<House> tbHouses) {
-        this.tbHouses = tbHouses;
+    public void setHouses(List<House> houses) {
+        this.houses = houses;
     }
 
-    public House addTbHous(House tbHous) {
-        getTbHouses().add(tbHous);
-        tbHous.setTbUser(this);
+    public House addHous(House house) {
+        getHouses().add(house);
+        house.setUser(this);
 
-        return tbHous;
+        return house;
     }
 
-    public House removeTbHous(House tbHous) {
-        getTbHouses().remove(tbHous);
-        tbHous.setTbUser(null);
+    public House removeHous(House hous) {
+        getHouses().remove(hous);
+        hous.setUser(null);
 
-        return tbHous;
+        return hous;
     }
 
-    public List<LoginLog> getTbLoginLogs() {
-        return this.tbLoginLogs;
+    public List<LoginLog> getLoginLogs() {
+        return this.loginLogs;
     }
 
-    public void setTbLoginLogs(List<LoginLog> tbLoginLogs) {
-        this.tbLoginLogs = tbLoginLogs;
+    public void setLoginLogs(List<LoginLog> loginLogs) {
+        this.loginLogs = loginLogs;
     }
 
-    public LoginLog addTbLoginLog(LoginLog tbLoginLog) {
-        getTbLoginLogs().add(tbLoginLog);
-        tbLoginLog.setTbUser(this);
+    public LoginLog addLoginLog(LoginLog loginLog) {
+        getLoginLogs().add(loginLog);
+        loginLog.setUser(this);
 
-        return tbLoginLog;
+        return loginLog;
     }
 
-    public LoginLog removeTbLoginLog(LoginLog tbLoginLog) {
-        getTbLoginLogs().remove(tbLoginLog);
-        tbLoginLog.setTbUser(null);
+    public LoginLog removeLoginLog(LoginLog loginLog) {
+        getLoginLogs().remove(loginLog);
+        loginLog.setUser(null);
 
-        return tbLoginLog;
+        return loginLog;
     }
 
 }

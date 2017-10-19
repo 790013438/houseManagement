@@ -24,8 +24,8 @@ public class HouseType implements Serializable {
     private String name;
 
     //bi-directional many-to-one association to House
-    @OneToMany(mappedBy="tbHouseType")
-    private List<House> tbHouses;
+    @OneToMany(mappedBy="houseType")
+    private List<House> houses;
 
     public HouseType() {
     }
@@ -46,26 +46,26 @@ public class HouseType implements Serializable {
         this.name = name;
     }
 
-    public List<House> getTbHouses() {
-        return this.tbHouses;
+    public List<House> getHouses() {
+        return this.houses;
     }
 
-    public void setTbHouses(List<House> tbHouses) {
-        this.tbHouses = tbHouses;
+    public void setHouses(List<House> houses) {
+        this.houses = houses;
     }
 
-    public House addTbHous(House tbHous) {
-        getTbHouses().add(tbHous);
-        tbHous.setTbHouseType(this);
+    public House addHous(House house) {
+        getHouses().add(house);
+        house.setHouseType(this);
 
-        return tbHous;
+        return house;
     }
 
-    public House removeTbHous(House tbHous) {
-        getTbHouses().remove(tbHous);
-        tbHous.setTbHouseType(null);
+    public House removeHous(House house) {
+        getHouses().remove(house);
+        house.setHouseType(null);
 
-        return tbHous;
+        return house;
     }
 
 }
