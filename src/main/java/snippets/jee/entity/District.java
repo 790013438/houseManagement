@@ -26,11 +26,11 @@ public class District implements Serializable {
     //bi-directional many-to-one association to City
     @ManyToOne
     @JoinColumn(name="city_id")
-    private City tbCity;
+    private City city;
 
     //bi-directional many-to-one association to House
-    @OneToMany(mappedBy="tbDistrict")
-    private List<House> tbHouses;
+    @OneToMany(mappedBy="district")
+    private List<House> houses;
 
     public District() {
     }
@@ -51,34 +51,34 @@ public class District implements Serializable {
         this.name = name;
     }
 
-    public City getTbCity() {
-        return this.tbCity;
+    public City getCity() {
+        return this.city;
     }
 
-    public void setTbCity(City tbCity) {
-        this.tbCity = tbCity;
+    public void setCity(City city) {
+        this.city = city;
     }
 
-    public List<House> getTbHouses() {
-        return this.tbHouses;
+    public List<House> getHouses() {
+        return this.houses;
     }
 
-    public void setTbHouses(List<House> tbHouses) {
-        this.tbHouses = tbHouses;
+    public void setHouses(List<House> houses) {
+        this.houses = houses;
     }
 
-    public House addTbHous(House tbHous) {
-        getTbHouses().add(tbHous);
-        tbHous.setTbDistrict(this);
+    public House addHous(House house) {
+        getHouses().add(house);
+        house.setDistrict(this);
 
-        return tbHous;
+        return house;
     }
 
-    public House removeTbHous(House tbHous) {
-        getTbHouses().remove(tbHous);
-        tbHous.setTbDistrict(null);
+    public House removeHous(House hous) {
+        getHouses().remove(hous);
+        hous.setDistrict(null);
 
-        return tbHous;
+        return hous;
     }
 
 }

@@ -24,8 +24,8 @@ public class Province implements Serializable {
     private String name;
 
     //bi-directional many-to-one association to City
-    @OneToMany(mappedBy="tbProvince")
-    private List<City> tbCities;
+    @OneToMany(mappedBy="province")
+    private List<City> cities;
 
     public Province() {
     }
@@ -46,26 +46,26 @@ public class Province implements Serializable {
         this.name = name;
     }
 
-    public List<City> getTbCities() {
-        return this.tbCities;
+    public List<City> getCities() {
+        return this.cities;
     }
 
-    public void setTbCities(List<City> tbCities) {
-        this.tbCities = tbCities;
+    public void setCities(List<City> cities) {
+        this.cities = cities;
     }
 
-    public City addTbCity(City tbCity) {
-        getTbCities().add(tbCity);
-        tbCity.setTbProvince(this);
+    public City addCity(City city) {
+        getCities().add(city);
+        city.setProvince(this);
 
-        return tbCity;
+        return city;
     }
 
-    public City removeTbCity(City tbCity) {
-        getTbCities().remove(tbCity);
-        tbCity.setTbProvince(null);
+    public City removeCity(City city) {
+        getCities().remove(city);
+        city.setProvince(null);
 
-        return tbCity;
+        return city;
     }
 
 }

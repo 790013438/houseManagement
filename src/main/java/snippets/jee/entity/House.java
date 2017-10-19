@@ -51,21 +51,21 @@ public class House implements Serializable {
     //bi-directional many-to-one association to District
     @ManyToOne
     @JoinColumn(name="district_id")
-    private District tbDistrict;
+    private District district;
 
     //bi-directional many-to-one association to HouseType
     @ManyToOne
     @JoinColumn(name="house_type_id")
-    private HouseType tbHouseType;
+    private HouseType houseType;
 
     //bi-directional many-to-one association to User
     @ManyToOne
     @JoinColumn(name="user_id")
-    private User tbUser;
+    private User user;
 
     //bi-directional many-to-one association to HousePhoto
-    @OneToMany(mappedBy="tbHouse")
-    private List<HousePhoto> tbHousePhotos;
+    @OneToMany(mappedBy="house")
+    private List<HousePhoto> housePhotos;
 
     public House() {
     }
@@ -182,50 +182,50 @@ public class House implements Serializable {
         this.totalFloor = totalFloor;
     }
 
-    public District getTbDistrict() {
-        return this.tbDistrict;
+    public District getDistrict() {
+        return this.district;
     }
 
-    public void setTbDistrict(District tbDistrict) {
-        this.tbDistrict = tbDistrict;
+    public void setDistrict(District district) {
+        this.district = district;
     }
 
-    public HouseType getTbHouseType() {
-        return this.tbHouseType;
+    public HouseType getHouseType() {
+        return this.houseType;
     }
 
-    public void setTbHouseType(HouseType tbHouseType) {
-        this.tbHouseType = tbHouseType;
+    public void setHouseType(HouseType houseType) {
+        this.houseType = houseType;
     }
 
-    public User getTbUser() {
-        return this.tbUser;
+    public User getUser() {
+        return this.user;
     }
 
-    public void setTbUser(User tbUser) {
-        this.tbUser = tbUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public List<HousePhoto> getTbHousePhotos() {
-        return this.tbHousePhotos;
+    public List<HousePhoto> getHousePhotos() {
+        return this.housePhotos;
     }
 
-    public void setTbHousePhotos(List<HousePhoto> tbHousePhotos) {
-        this.tbHousePhotos = tbHousePhotos;
+    public void setHousePhotos(List<HousePhoto> housePhotos) {
+        this.housePhotos = housePhotos;
     }
 
-    public HousePhoto addTbHousePhoto(HousePhoto tbHousePhoto) {
-        getTbHousePhotos().add(tbHousePhoto);
-        tbHousePhoto.setTbHouse(this);
+    public HousePhoto addHousePhoto(HousePhoto housePhoto) {
+        getHousePhotos().add(housePhoto);
+        housePhoto.setHouse(this);
 
-        return tbHousePhoto;
+        return housePhoto;
     }
 
-    public HousePhoto removeTbHousePhoto(HousePhoto tbHousePhoto) {
-        getTbHousePhotos().remove(tbHousePhoto);
-        tbHousePhoto.setTbHouse(null);
+    public HousePhoto removeHousePhoto(HousePhoto housePhoto) {
+        getHousePhotos().remove(housePhoto);
+        housePhoto.setHouse(null);
 
-        return tbHousePhoto;
+        return housePhoto;
     }
 
 }

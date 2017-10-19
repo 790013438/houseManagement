@@ -25,7 +25,7 @@ public class HousePhoto implements Serializable {
     //bi-directional many-to-one association to House
     @ManyToOne
     @JoinColumn(name="house_id")
-    private House tbHouse;
+    private House house;
 
     public HousePhoto() {
     }
@@ -46,12 +46,12 @@ public class HousePhoto implements Serializable {
         this.name = name;
     }
 
-    public House getTbHouse() {
-        return this.tbHouse;
+    public House getHouse() {
+        return this.house;
     }
 
-    public void setTbHouse(House tbHouse) {
-        this.tbHouse = tbHouse;
+    public void setHouse(House house) {
+        this.house = house;
     }
 
 }
