@@ -12,14 +12,14 @@
 
     <!-- 前端控制器 -->
     <servlet>
-        <servlet-name>fontController</servlet-name>
+        <servlet-name>frontController</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
         <multipart-config/>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>fronController</servlet-name>
+        <servlet-name>frontController</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
