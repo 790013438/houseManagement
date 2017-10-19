@@ -1,9 +1,13 @@
 package snippets.jee.service.impl;
 
+import java.util.Date;
+
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import snippets.jee.entity.LoginLog;
 import snippets.jee.entity.User;
 import snippets.jee.persistence.LoginLogDAO;
 import snippets.jee.persistence.UserDAO;
@@ -13,11 +17,9 @@ import snippets.jee.service.UserService;
 @Transactional
 public class UserServiceImpl implements UserService {
 
-    @SuppressWarnings("unused")
     @Autowired
     private UserDAO userDAO;
 
-    @SuppressWarnings("unused")
     @Autowired
     private LoginLogDAO loginLogDAO;
 
@@ -29,7 +31,7 @@ public class UserServiceImpl implements UserService {
             String md5 = DigestUtils.md5Hex(user.getPassword());
             flag = temp.getPassword().equals(md5);
             if (flag) {
-                LoginLog.loginLog = new LoginLog();
+                LoginLog loginLog = new LoginLog();
                 loginLog.setUser(temp);
                 loginLog.setIpAddress("211.135.62.90");
                 loginLog.setLogDate(new Date());

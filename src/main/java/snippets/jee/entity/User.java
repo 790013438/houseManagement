@@ -50,11 +50,11 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public boolean getIsadmin() {
+    public boolean getAdmin() {
         return this.admin;
     }
 
-    public void setIsadmin(boolean admin) {
+    public void setAdmin(boolean admin) {
         this.admin = admin;
     }
 

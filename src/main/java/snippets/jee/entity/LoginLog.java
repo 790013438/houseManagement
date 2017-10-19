@@ -21,10 +21,10 @@ public class LoginLog implements Serializable {
     private int id;
 
     @Column(name = "ipaddr")
-    private String ipaddr;
+    private String ipAddr;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date logdate;
+    private Date logDate;
 
     //bi-directional many-to-one association to User
     @ManyToOne
@@ -42,20 +42,20 @@ public class LoginLog implements Serializable {
         this.id = id;
     }
 
-    public String getIpaddr() {
-        return this.ipaddr;
+    public String getIpAddr() {
+        return this.ipAddr;
     }
 
-    public void setIpaddr(String ipaddr) {
-        this.ipaddr = ipaddr;
+    public void setIpAddress(String ipaddr) {
+        this.ipAddr = ipaddr;
     }
 
-    public Date getLogdate() {
-        return this.logdate;
+    public Date getLogDate() {
+        return this.logDate;
     }
 
-    public void setLogdate(Date logdate) {
-        this.logdate = logdate;
+    public void setLogDate(Date logdate) {
+        this.logDate = logdate;
     }
 
     public User getUser() {
