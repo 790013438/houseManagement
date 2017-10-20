@@ -31,9 +31,11 @@ public class UserServiceImpl implements UserService {
             String md5 = DigestUtils.md5Hex(user.getPassword());
             flag = temp.getPassword().equals(md5);
             if (flag) {
+                user.setId(temp.getId());
+                user.setRealname(temp.getRealname());
                 LoginLog loginLog = new LoginLog();
                 loginLog.setUser(temp);
-                loginLog.setIpAddress("211.135.62.90");
+                loginLog.setIpAddress(user.getIpAddress());
                 loginLog.setLogDate(new Date());
                 loginLogDAO.save(loginLog);
             }
@@ -47,6 +49,7 @@ public class UserServiceImpl implements UserService {
         if (temp == null) {
             String md5 = DigestUtils.md5Hex(user.getPassword());
             user.setPassword(md5);
+            user.setAdmin(false);
             return userDAO.save(user) != null;
         }
         return false;

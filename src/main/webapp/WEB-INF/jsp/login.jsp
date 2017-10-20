@@ -17,12 +17,12 @@
         <div class="dialog">
             <div class="box">
                 <h4>用户登录</h4>
-                <form action="login.do" method="post">
+                <form id="loginForm" action="login.do" method="post">
                     <div class="infos">
                         <table class="field">
                             <tr>
                                 <td>&nbsp;</td>
-                                <td style="color: red;">${hint}</td>
+                                <td style="color: red;" id="hint">${hint}</td>
                             </tr>
                             <tr>
                                 <td class="field">用 户 名：</td>
@@ -33,13 +33,15 @@
                                     <c:if test="${not empty username}">
                                         <c:set var="currentUid" value="${username}" />
                                     </c:if> 
-                                    <input id="username" type="text" class="text" name="username" value="${currentUid}">
+                                    <input id="username" type="text" class="text" value="${currentUid}">
+                                    <span id="uerror" style="color:red; font-size:12px;">${uerror}</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="field">密 码：</td>
                                 <td>
                                     <input id="password" type="password" class="text" name="password">
+                                    <span id="perror" style="color:reds; font-size:12px;">${perror}</span>
                                 </td>
                             </tr>
                             <tr>
@@ -74,11 +76,39 @@
     </div>
     <script src="js/jquery-1.11.1.min.js"></script>
     <script>
-        $('#code').on('click', function() {
-            $(this).attr('src', 'code.do?' + Math.random());
-        });
-        $('#toRegBtn').on('click', function() {
-            location.href="register.jsp";
+        $(function() {
+            $('#loginForm').on('submit', function(evt) {
+                evt.preventDefault();
+                var username = $('#username').val();
+                var password = $('#password').val();
+                if (checkUsername(username) & checkPassword(password)) {
+                    this.submit();
+                }
+            });
+
+            $('#username').on('blur', function() {
+                checkUsername($(this).val());
+            });
+
+            $('#password').on('blur', function() {
+                checkPassword($(this).val());
+            });
+
+            function checkUsername (username) {
+                var flag = /^\w{6,20}$/.test(username);
+                flag ? $('#uerror').text('') : $('#uerror').text('无效的用户名');
+
+                return flag;
+            }
+
+            function checkPassword (password) {
+                var flag = password.length >= 6;
+                flag ? $('#perror').text('') : $('#perror').text('密码不能少于6个字符');
+            }
+
+            $('#code').on('click', function() {
+                $(this).attr('src', 'code?' + Math.random());
+            });
         });
     </script>
 </body>

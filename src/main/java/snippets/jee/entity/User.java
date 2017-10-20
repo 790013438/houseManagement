@@ -2,6 +2,9 @@ package snippets.jee.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 import java.util.List;
 
 
@@ -23,12 +26,14 @@ public class User implements Serializable {
     @Column(name = "isadmin")
     private Boolean admin;
 
+    @Size(min = 6, max = 20)
     private String password;
 
     private String realname;
 
     private String tel;
 
+    @Pattern(regexp = "\\w{6,20}")
     private String username;
 
     //bi-directional many-to-one association to House
@@ -38,6 +43,9 @@ public class User implements Serializable {
     //bi-directional many-to-one association to LoginLog
     @OneToMany(mappedBy="user")
     private List<LoginLog> loginLogs;
+
+    @Transient
+    private String ipAddress;
 
     public User() {
     }
@@ -54,7 +62,7 @@ public class User implements Serializable {
         return this.admin;
     }
 
-    public void setAdmin(boolean admin) {
+    public void setAdmin(Boolean admin) {
         this.admin = admin;
     }
 
@@ -132,6 +140,14 @@ public class User implements Serializable {
         loginLog.setUser(null);
 
         return loginLog;
+    }
+
+    public String getIpAddress() {
+        return ipAddress;
+    }
+
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
     }
 
 }
