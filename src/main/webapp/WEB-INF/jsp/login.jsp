@@ -109,6 +109,10 @@
             $('#code').on('click', function() {
                 $(this).attr('src', 'code?' + Math.random());
             });
+
+            $('#toRegBtn').on('click', function() {
+                location.href = 'toReg';
+            });
         });
     </script>
 </body>
