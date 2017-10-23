@@ -1,6 +1,8 @@
 package snippets.jee.persistence;
 
-public interface ProvinceDAO {
+import snippets.jee.entity.Province;
+
+public interface ProvinceDAO extends BaseDAO<Province, Integer> {
 
     void getLocations();
 

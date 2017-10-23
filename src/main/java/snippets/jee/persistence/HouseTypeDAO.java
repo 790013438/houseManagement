@@ -4,7 +4,7 @@ import java.util.List;
 
 import snippets.jee.entity.HouseType;
 
-public interface HouseTypeDAO {
+public interface HouseTypeDAO extends BaseDAO<HouseType, Integer> {
 
     List<HouseType> getHouseTypes();
 
