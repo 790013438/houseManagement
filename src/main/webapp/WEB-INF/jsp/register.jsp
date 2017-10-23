@@ -19,7 +19,7 @@
                     <dd class="past">填写个人信息</dd>
                 </dl>
                 <div class="box">
-                    <form id="userRegisterForm" action="reg.do" method="post">
+                    <form id="registerForm" action="reg.do" method="post">
                         <div class="infos">
                             <table class="field">
                                 <tr>
@@ -58,7 +58,7 @@
                                 </tr>
                             </table>
                             <div class="buttons">
-                                <input type="submit" name="submit" value="立即注册" />
+                                <input type="submit" value="立即注册" />
                             </div>
                         </div>
                     </form>
@@ -74,25 +74,21 @@
         <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
         <script type="text/javascript">
             $(function() {
-                $('#userRegisterForm').on('submit', function(evt) {
+                var isValid = false;
+                $('#registerForm').on('submit', function(evt) {
                     evt.preventDefault();
-                    this.submit();
+                    // ...
+                    evt.target.submit();
                 });
             });
                 
             $('#username').on('blur', function() {
                 var username = $(this).val();
-                $.ajax({
-                   url: 'check.do',
-                   data: { 'username': username },
-                   success: function(data) {
-                       if (data.indexOf('used') >= 0) {
-                           showErrorHint();
-                       } else {
-                           showCorrectHint();
-                       }
-                   }
-               });
+                $.getJSON('check?username=' + username, function(json) {
+                    isValid = json.valid;
+                    $('#isValid').children().remove();
+                    $('#isValid').append($('<img>').attr('src', 'images/' + json.picture))
+                });
             });
 
             function showErrorHint() {

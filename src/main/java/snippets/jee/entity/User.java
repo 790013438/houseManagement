@@ -44,9 +44,6 @@ public class User implements Serializable {
     @OneToMany(mappedBy="user")
     private List<LoginLog> loginLogs;
 
-    @Transient
-    private String ipAddress;
-
     public User() {
     }
 
@@ -140,14 +137,6 @@ public class User implements Serializable {
         loginLog.setUser(null);
 
         return loginLog;
-    }
-
-    public String getIpAddress() {
-        return ipAddress;
-    }
-
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
     }
 
 }

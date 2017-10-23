@@ -10,7 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import snippets.jee.dto.CheckResult;
+import snippets.jee.dto.UserLoginDTO;
 import snippets.jee.entity.User;
 import snippets.jee.service.UserService;
 
@@ -20,19 +23,34 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/check")
+    @ResponseBody
+    public CheckResult checkUsername (String username) {
+        boolean valid = userService.checkUnique(username);
+        return new CheckResult(username, valid,
+                valid ? "用户名可用" : "用户名已被使用",
+                valid ? "ok.png" : "no.png");
+    }
+
     @PostMapping("/login")
-    public String doLogin (@Valid User user, Errors errors, HttpServletRequest request, Model model) {
-        String viewName = "login";
-        if (!errors.hasErrors()) {
-            user.setIpAddress(request.getRemoteAddr());
-            if (userService.login(user)) {
-                request.getSession().setAttribute("user", user);
-                return "redirect: home";
-            }
-            model.addAttribute("hint", "用户名或密码错误");
+    public String doLogin (@Valid UserLoginDTO user, Errors errors, HttpServletRequest request, Model model) {
+        String codeFromServer = (String)request.getSession().getAttribute("code");
+        if (!codeFromServer.equalsIgnoreCase(user.getCode())) {
+            model.addAttribute("hint", "请输入正确的验证码");
+            return "login";
         }
-        model.addAttribute("hint", "请输入有效的登录信息");
-        return viewName;
+        if (errors.hasErrors()) {
+            model.addAttribute("hint", "请输入有效的登录信息");
+            return "login";
+        }
+        if (!userService.login(user)) {
+            model.addAttribute("hint", "用户名或密码错误");
+            return "login";
+        }
+        user.setIpAddress(request.getRemoteAddr());
+        request.getSession().setAttribute("userId", user.getId());
+        request.getSession().setAttribute("userRealname", user.getRealname());
+        return "redirect: home";
     }
 
     @PostMapping("/reg")

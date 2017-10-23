@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import snippets.jee.dto.UserLoginDTO;
 import snippets.jee.entity.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -17,10 +18,12 @@ public class UserServiceTest {
 
     @Test
     public void testLogin() {
-        User user = new User();
-        user.setUsername("hellokitty");
-        user.setPassword("lqaz2wsx");
-        userService.login(user);
+        UserLoginDTO userLoginDTO = new UserLoginDTO();
+        userLoginDTO.setUsername("hellokitty");
+        userLoginDTO.setPassword("lqaz2wsx");
+        userLoginDTO.setCode("1234");
+        userLoginDTO.setIpAddress("10.7.189.200");
+        userService.login(userLoginDTO);
     }
 
     @Test

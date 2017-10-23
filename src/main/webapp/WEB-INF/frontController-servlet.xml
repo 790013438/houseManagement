@@ -11,7 +11,13 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!-- 通过注解配饰spring -->
-    <annotation-driven/>
+    <annotation-driven>
+        <message-converters>
+            <beans:bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter"/>
+            <beans:bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+            <beans:bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+        </message-converters>
+    </annotation-driven>
 
     <resources mapping="/css/**" location="/css/" />
     <resources mapping="/js/**" location="/js/" />

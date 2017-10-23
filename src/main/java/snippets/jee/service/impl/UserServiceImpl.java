@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import snippets.jee.dto.UserLoginDTO;
 import snippets.jee.entity.LoginLog;
 import snippets.jee.entity.User;
 import snippets.jee.persistence.LoginLogDAO;
@@ -24,18 +25,18 @@ public class UserServiceImpl implements UserService {
     private LoginLogDAO loginLogDAO;
 
     @Override
-    public boolean login (User user) {
+    public boolean login (UserLoginDTO userDTO) {
         boolean flag = false;
-        User temp = userDAO.findByUsername(user.getUsername());
+        User temp = userDAO.findByUsername(userDTO.getUsername());
         if (temp != null) {
-            String md5 = DigestUtils.md5Hex(user.getPassword());
+            String md5 = DigestUtils.md5Hex(userDTO.getPassword());
             flag = temp.getPassword().equals(md5);
             if (flag) {
-                user.setId(temp.getId());
-                user.setRealname(temp.getRealname());
+                userDTO.setId(temp.getId());
+                userDTO.setRealname(temp.getRealname());
                 LoginLog loginLog = new LoginLog();
                 loginLog.setUser(temp);
-                loginLog.setIpAddress(user.getIpAddress());
+                loginLog.setIpAddress(userDTO.getIpAddress());
                 loginLog.setLogDate(new Date());
                 loginLogDAO.save(loginLog);
             }
@@ -53,5 +54,10 @@ public class UserServiceImpl implements UserService {
             return userDAO.save(user) != null;
         }
         return false;
+    }
+
+    @Override
+    public boolean checkUnique(String username) {
+        return userDAO.findByUsername(username) == null;
     }
 }
