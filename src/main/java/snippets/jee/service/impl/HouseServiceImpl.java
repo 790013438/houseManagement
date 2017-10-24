@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import snippets.jee.dto.PageBean;
 import snippets.jee.entity.House;
 import snippets.jee.entity.HouseType;
 import snippets.jee.persistence.HouseDAO;
@@ -31,6 +32,12 @@ public class HouseServiceImpl implements HouseService {
     @Override
     public boolean publishNewHouse(House house) {
         return houseDAO.save(house) != null;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public PageBean<House> listHousesByPage(int page, int size) {
+        return houseDAO.findByPage(page, size);
     }
 
 }

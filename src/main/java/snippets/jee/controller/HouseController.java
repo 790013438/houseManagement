@@ -27,6 +27,12 @@ public class HouseController {
     public String addHouse (House house, MultipartFile primaryPhoto, MultipartFile[] photo, HttpServletRequest req, Model model) throws IOException {
         String viewName = "pub";
         String originalFilename = primaryPhoto.getOriginalFilename();
+
+        if (primaryPhoto.isEmpty()) {
+            model.addAttribute("hint", "请为发布的房源上传图片");
+            return "pub";
+        }
+
         String newFilename = CommonUtil.getUniqueFilename() + CommonUtil.getFilenameSuffix(originalFilename);
         String path = req.getServletContext().getRealPath("/images/upload");
         //保存上传文件到指定的文件中
