@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import snippets.jee.entity.City;
+import snippets.jee.entity.District;
 import snippets.jee.entity.Province;
 import snippets.jee.service.LocationService;
 import snippets.jee.util.CommonUtil;
@@ -41,6 +42,12 @@ public class HomeController {
     @ResponseBody
     public List<City> getCities (Province province) {
         return locationService.listAllCitiesByProvince(province);
+    }
+
+    @GetMapping("/districts")
+    @ResponseBody
+    public List<District> getDistricts (City city) {
+        return locationService.listAllDistrictsByCity(city);
     }
 
     @GetMapping("/toLogin")

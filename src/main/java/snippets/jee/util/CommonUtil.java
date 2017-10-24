@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.UUID;
 
 public final class CommonUtil {
 
@@ -42,5 +43,20 @@ public final class CommonUtil {
      */
     public static int randomInt (int start, int end) {
         return (int) (start + Math.random() * (end - start));
+    }
+
+    /**
+     * 获取全局唯一的文件名
+     */
+    public static String getUniqueFilename() {
+        return UUID.randomUUID().toString();
+    }
+
+    /**
+     * 获取文件名中的后缀名
+     */
+    public static String getFilenameSuffix(String originalFilename) {
+        int index = originalFilename.lastIndexOf(".");
+        return index > 0 && index < originalFilename.length() - 1 ? originalFilename.substring(index) : "";
     }
 }

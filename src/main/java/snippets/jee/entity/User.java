@@ -44,7 +44,10 @@ public class User implements Serializable {
     @OneToMany(mappedBy="user")
     private List<LoginLog> loginLogs;
 
-    public User() {
+    public User() {}
+
+    public User(Integer userId) {
+        this.id = userId;
     }
 
     public int getId() {
