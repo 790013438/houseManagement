@@ -44,6 +44,7 @@ public class House implements Serializable {
 
     private String street;
 
+    @Column(length = 50)
     private String title;
 
     private int totalFloor;

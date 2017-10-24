@@ -10,12 +10,18 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import snippets.jee.dto.PageBean;
 import snippets.jee.entity.City;
+import snippets.jee.entity.District;
+import snippets.jee.entity.House;
 import snippets.jee.entity.Province;
+import snippets.jee.service.HouseService;
 import snippets.jee.service.LocationService;
 import snippets.jee.util.CommonUtil;
 
@@ -26,9 +32,17 @@ public class HomeController {
 
     @Autowired
     private LocationService locationService;
+    @Autowired
+    private HouseService houseService;
 
     @GetMapping({"/", "/home"})
-    public String toIndex() {
+    public String toIndex(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size, Model model) {
+        PageBean<House> pageBean = houseService.listHousesByPage(page, size);
+
+        model.addAttribute("houseList", pageBean.getDataModel());
+        model.addAttribute("currentPage", pageBean.getCurrentPage());
+        model.addAttribute("totalPage", pageBean.getTotalPage());
+
         return "index";
     }
 
@@ -41,6 +55,12 @@ public class HomeController {
     @ResponseBody
     public List<City> getCities (Province province) {
         return locationService.listAllCitiesByProvince(province);
+    }
+
+    @GetMapping("/districts")
+    @ResponseBody
+    public List<District> getDistricts (City city) {
+        return locationService.listAllDistrictsByCity(city);
     }
 
     @GetMapping("/toLogin")

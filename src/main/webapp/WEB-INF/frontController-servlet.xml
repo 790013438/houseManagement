@@ -32,4 +32,17 @@
 
     <context:component-scan base-package="snippets.jee.controller"/>
 
+    <!-- 文件上传 -->
+    <!-- Servlet 3 StandardServletMutipartResolver -->
+    <beans:bean class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>
+
+    <!-- 配置interceptor -->
+    <interceptors>
+        <interceptor>
+            <mapping path="/toPub" />
+            <mapping path="addHouse" />
+            <beans:bean class="snippets.jee.interceptor.LoginInterceptor" />
+        </interceptor>
+    </interceptors>
+
 </beans:beans>
