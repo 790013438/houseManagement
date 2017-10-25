@@ -11,7 +11,7 @@
     http://www.springframework.org/schema/tx/spring-tx.xsd">
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/jpa"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/house?characterEncoding=utf8"/>
         <property name="username" value="user1"/>
         <property name="password" value="37934bit"/>
         <property name="initialSize" value="10"></property>
