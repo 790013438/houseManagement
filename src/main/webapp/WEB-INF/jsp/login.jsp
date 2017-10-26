@@ -17,7 +17,7 @@
         <div class="dialog">
             <div class="box">
                 <h4>用户登录</h4>
-                <form id="loginForm" action="login.do" method="post">
+                <form id="loginForm" action="login" method="post">
                     <div class="infos">
                         <table class="field">
                             <tr>
@@ -33,14 +33,14 @@
                                     <c:if test="${not empty username}">
                                         <c:set var="currentUid" value="${username}" />
                                     </c:if> 
-                                    <input id="username" type="text" class="text" value="${currentUid}">
+                                    <input id="username" name="username" type="text" class="text" value="${user.username}">
                                     <span id="uerror" style="color:red; font-size:12px;">${uerror}</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="field">密 码：</td>
                                 <td>
-                                    <input id="password" type="password" class="text" name="password">
+                                    <input id="password" type="password" class="text" name="password" value="${user.password}">
                                     <span id="perror" style="color:reds; font-size:12px;">${perror}</span>
                                 </td>
                             </tr>
@@ -104,6 +104,8 @@
             function checkPassword (password) {
                 var flag = password.length >= 6;
                 flag ? $('#perror').text('') : $('#perror').text('密码不能少于6个字符');
+
+                return flag;
             }
 
             $('#code').on('click', function() {

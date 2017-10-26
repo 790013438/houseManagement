@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -32,8 +33,16 @@ public class UserController {
                 valid ? "ok.png" : "no.png");
     }
 
+    @GetMapping("/toLogin")
+    public String toLogin (Model model) {
+        UserLoginDTO userLoginDTO = new UserLoginDTO();
+        model.addAttribute("user", userLoginDTO);
+
+        return "login";
+    }
+
     @PostMapping("/login")
-    public String doLogin (@Valid UserLoginDTO user, Errors errors, HttpServletRequest request, Model model) {
+    public String doLogin (@Valid @ModelAttribute("user")UserLoginDTO user, Errors errors, HttpServletRequest request, Model model) {
         String codeFromServer = (String)request.getSession().getAttribute("code");
         if (!codeFromServer.equalsIgnoreCase(user.getCode())) {
             model.addAttribute("hint", "请输入正确的验证码");
@@ -43,11 +52,11 @@ public class UserController {
             model.addAttribute("hint", "请输入有效的登录信息");
             return "login";
         }
+        user.setIpAddress(request.getRemoteAddr());
         if (!userService.login(user)) {
             model.addAttribute("hint", "用户名或密码错误");
             return "login";
         }
-        user.setIpAddress(request.getRemoteAddr());
         request.getSession().setAttribute("userId", user.getId());
         request.getSession().setAttribute("userRealname", user.getRealname());
         return "redirect: home";

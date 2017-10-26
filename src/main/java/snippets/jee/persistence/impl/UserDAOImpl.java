@@ -18,4 +18,10 @@ public class UserDAOImpl extends BaseDAOAdapter<User, Integer> implements UserDA
                 .getResultList();
         return userList.size() == 1 ? userList.get(0) : null;
     }
+
+    @Override
+    public void update(User entity) {
+        super.update(entity);
+    }
+
 }

@@ -26,7 +26,7 @@
                         <a href="logout">注销</a>
                     </c:when>
                     <c:otherwise>
-                        <a href="login">用户登录</a>
+                        <a href="toLogin">用户登录</a>
                     </c:otherwise>
                 </c:choose>
                 <a href="register">快速注册</a>

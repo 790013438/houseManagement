@@ -19,7 +19,7 @@
                     <dd class="past">填写个人信息</dd>
                 </dl>
                 <div class="box">
-                    <form id="registerForm" action="reg.do" method="post">
+                    <form id="registerForm" action="reg" method="post">
                         <div class="infos">
                             <table class="field">
                                 <tr>
@@ -53,7 +53,7 @@
                                     <td class="field">验 证 码：</td>
                                     <td>
                                         <input type="text" class="text" name="code"> 
-                                        <img id="code" src="" width="80" height="30">
+                                        <img id="code" src="code" width="80" height="30">
                                     </td>
                                 </tr>
                             </table>

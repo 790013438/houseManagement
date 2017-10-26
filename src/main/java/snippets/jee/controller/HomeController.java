@@ -63,11 +63,6 @@ public class HomeController {
         return locationService.listAllDistrictsByCity(city);
     }
 
-    @GetMapping("/toLogin")
-    public String toLogin () {
-        return "login";
-    }
-
     @GetMapping(value = "/code", produces = MediaType.IMAGE_PNG_VALUE)
     @ResponseBody
     public BufferedImage getCode (HttpServletResponse resp, HttpSession session) throws IOException {
