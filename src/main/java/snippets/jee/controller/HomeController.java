@@ -2,6 +2,8 @@ package snippets.jee.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -53,8 +56,14 @@ public class HomeController {
 
     @GetMapping("/cities")
     @ResponseBody
-    public List<City> getCities (Province province) {
-        return locationService.listAllCitiesByProvince(province);
+    public List<City> getCities (@ModelAttribute("province") Province province, int id, @ModelAttribute("provinceList") ArrayList<Province> provinceList) {
+        if (provinceList == null) {
+            return Collections.emptyList();
+        }
+        if (province == null) {
+            return Collections.emptyList();
+        }
+        return province.getCities();
     }
 
     @GetMapping("/districts")

@@ -18,7 +18,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
                 && !(contextString + "/home").equals(httpServletRequest.getRequestURI())
                 && userId == null) {
             //User is not logged in. Redirect to /login
-            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login");
+            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/toLogin");
             //do not process this request further
             return false;
         }

@@ -3,6 +3,8 @@ package snippets.jee.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
+import static javax.persistence.CascadeType.MERGE;
+import static javax.persistence.CascadeType.REFRESH;
 
 
 /**
@@ -24,7 +26,7 @@ public class Province implements Serializable {
     private String name;
 
     //bi-directional many-to-one association to City
-    @OneToMany(mappedBy="province")
+    @OneToMany(mappedBy="province", fetch = FetchType.EAGER, cascade = { MERGE, REFRESH })
     private List<City> cities;
 
     public Province() {
